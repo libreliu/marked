@@ -94,6 +94,22 @@ export class Tokenizer {
     }
   }
 
+  // treat math as html for now
+  math(src) {
+    const cap = this.rules.block.math.exec(src);
+    if (cap) {
+      const token = {
+        type: 'html',
+        pre: 'pre',
+        raw: cap[0],
+        text: cap[0]
+      };
+
+      // console.log(`block math detected: ${cap[0]}`);
+      return token;
+    }
+  }
+
   fences(src) {
     const cap = this.rules.block.fences.exec(src);
     if (cap) {
@@ -676,6 +692,22 @@ export class Tokenizer {
         raw: cap[0],
         text
       };
+    }
+  }
+
+  // treat as html for now
+  inlineMath(src) {
+    const cap = this.rules.inline.math.exec(src);
+    if (cap) {
+      const token = {
+        type: 'html',
+        pre: 'pre',
+        raw: cap[0],
+        text: cap[0]
+      };
+
+      // console.log(`inline math detected: ${cap[0]}`);
+      return token;
     }
   }
 

@@ -190,6 +190,13 @@ export class Lexer {
         continue;
       }
 
+      // math
+      if (token = this.tokenizer.math(src)) {
+        src = src.substring(token.raw.length);
+        tokens.push(token);
+        continue;
+      }
+
       // heading
       if (token = this.tokenizer.heading(src)) {
         src = src.substring(token.raw.length);
@@ -422,6 +429,13 @@ export class Lexer {
 
       // code
       if (token = this.tokenizer.codespan(src)) {
+        src = src.substring(token.raw.length);
+        tokens.push(token);
+        continue;
+      }
+
+      // inline math
+      if (token = this.tokenizer.inlineMath(src)) {
         src = src.substring(token.raw.length);
         tokens.push(token);
         continue;
